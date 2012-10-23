@@ -1,7 +1,6 @@
 /*
 	Redactor v8.0.3
 	Updated: September 3, 2012
-	
 	http://redactorjs.com/
 	
 	Copyright (c) 2009-2012, Imperavi Inc.
