@@ -976,7 +976,10 @@ var RLANG = {
 					this.textareamode = false;
 					this.$editor = this.$el;
 					this.$el = $('<textarea name="' + this.$editor.attr('id') + '"></textarea>').css('height', this.height);
-				}
+                    this.$elace = $('<div class="ace" id="ace-' + this.$editor.attr('id') + '"></div>').css('height', this.height).css('width', this.width);
+
+
+                }
 
 				this.$editor.addClass('redactor_editor').attr('contenteditable', true).attr('dir', this.opts.direction);
 
@@ -1020,6 +1023,30 @@ var RLANG = {
 					html = this.savePreCode(html);
 
 					this.$box.insertAfter(this.$editor).append(this.$el).append(this.$editor);
+                   // this.$box.append(this.$elace.hide());
+
+
+                    //$('.redactor-ace').append(this.$elace.hide());
+
+                    var wrapper = $('<div>').append(this.$elace.hide());
+                    this.$box.parent().append(wrapper.addClass('redactor-ace'));
+                    //ace editorize
+                    this.$ace_editor = ace.edit(this.$elace.attr('id'));
+
+
+                    var EditSession = require("ace/edit_session").EditSession;
+                    var dummySession = new EditSession("...", "ace/mode/html");
+                    this.$ace_editor.setSession(dummySession);
+                    this.$ace_editor.setTheme("ace/theme/idle_fingers");
+
+                    var me = this;
+                    this.$ace_editor.getSession().on('change', function(e) {
+                        var html =  me.$ace_editor.getSession().getValue();
+
+                        html = me.stripTags(html);
+                        me.$editor.html(html).focus();
+                        me.syncCode();
+                    });
 
 				}
 
@@ -1086,7 +1113,9 @@ var RLANG = {
 		},
 		syncCode: function()
 		{
+
 			this.$el.val(this.$editor.html());
+
 		},
 
 		// API functions
@@ -1106,7 +1135,7 @@ var RLANG = {
 			}
 			else
 			{
-				html = this.$el.val();
+				html = this.$ace_editor.getSession().getValue();//this.$el.val();
 			}
 
 			return this.stripTags(html);
@@ -1116,6 +1145,8 @@ var RLANG = {
 			this.$editor.focus();
 			this.pasteHtmlAtCaret(html);
 			this.observeImages();
+
+            this.syncCode();///mine
 		},
 
 		pasteHtmlAtCaret: function (html)
@@ -1303,7 +1334,7 @@ var RLANG = {
 		{
 			if (this.opts.visual == false)
 			{
-				this.$el.focus();
+				this.$el.focus();        //mmm
 				return false;
 			}
 
@@ -1842,7 +1873,16 @@ var RLANG = {
 				html = this.$editor.html();
 				html = $.trim(this.formatting(html));
 
-				this.$el.height(height).val(html).show().focus();
+
+
+                this.$el.height(height).val(html);//show().focus();
+
+
+                var html_pp = style_html(this.$editor.html());
+                this.$ace_editor.getSession().setValue(html_pp);
+
+				this.$elace.height(height).show().focus(); //changed
+
 
 				this.setBtnActive('html');
 				this.opts.visual = false;
@@ -1850,15 +1890,16 @@ var RLANG = {
 			else
 			{
 				this.$el.hide();
-				var html = this.$el.val();
+                this.$elace.hide();
+				var html = this.$ace_editor.getSession().getValue();//this.$el.val();
 
 				html = this.savePreCode(html);
 
-				// clean up
+                // clean up
 				html = this.stripTags(html);
 
-				// set code
-				this.$editor.html(html).show();
+				this.$editor.html(html);
+                this.$editor.show();
 
 				if (this.$editor.html() === '')
 				{
