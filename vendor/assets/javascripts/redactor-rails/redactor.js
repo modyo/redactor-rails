@@ -1055,6 +1055,10 @@ var RLANG = {
 				// enable
 				this.$editor.innerHTML = html;
 
+				this.observeImages();
+
+				this.observeTables();
+
 				if (this.textareamode === false)
 				{
 					this.syncCode();
