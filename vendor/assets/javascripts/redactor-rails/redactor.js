@@ -1032,7 +1032,9 @@ var RLANG = {
 
                 this.$ace_editor = ace.edit(this.$elace.attr('id'));
                 var EditSession = require("ace/edit_session").EditSession;
-                var dummySession = new EditSession("...", "ace/mode/html");
+
+                var html_pp = style_html(html);
+                var dummySession = new EditSession(html_pp, "ace/mode/html");
                 this.$ace_editor.setSession(dummySession);
                 this.$ace_editor.setTheme("ace/theme/idle_fingers");
 
