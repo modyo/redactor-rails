@@ -1053,7 +1053,7 @@ var RLANG = {
 				html = this.paragraphy(html);
 
 				// enable
-				this.$editor.html(html);
+				this.$editor.innerHTML = html;
 
 				if (this.textareamode === false)
 				{
