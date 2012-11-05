@@ -1018,7 +1018,7 @@ var RLANG = {
 				else
 				{
 					// get html
-					html = this.$editor.html();
+					html = this.$editor[0].innerHTML;
 					html = this.savePreCode(html);
 
 					this.$box.insertAfter(this.$editor).append(this.$el).append(this.$editor);
@@ -1037,11 +1037,11 @@ var RLANG = {
                 this.$ace_editor.setTheme("ace/theme/idle_fingers");
 
                 var me = this;
-                this.$ace_editor.getSession().on('change', function(e) {
+                this.$ace_editor.getSession().on('tokenizerUpdate', function(e) {
                     var html =  me.$ace_editor.getSession().getValue();
 
                     html = me.stripTags(html);
-                    me.$editor.html(html).focus();
+                    me.$editor[0].innerHTML= html;
                     me.syncCode();
                 });
 
@@ -1051,7 +1051,7 @@ var RLANG = {
 				html = this.paragraphy(html);
 
 				// enable
-				this.$editor.html(html);
+				this.$editor[0].innerHTML = html;
 
 				if (this.textareamode === false)
 				{
@@ -1109,7 +1109,7 @@ var RLANG = {
 		syncCode: function()
 		{
 
-			this.$el.val(this.$editor.html());
+			this.$el.val(this.$editor[0].innerHTML);
 
 		},
 
@@ -1117,7 +1117,7 @@ var RLANG = {
 		setCode: function(html)
 		{
 			html = this.stripTags(html);
-			this.$editor.html(html).focus();
+			this.$editor[0].innerHTML = html;
 
 			this.syncCode();
 		},
@@ -1126,7 +1126,7 @@ var RLANG = {
 			var html = '';
 			if (this.opts.visual)
 			{
-				html = this.$editor.html()
+				html = this.$editor[0].innerHTML
 			}
 			else
 			{
@@ -1193,7 +1193,8 @@ var RLANG = {
 			{
 				this.$box.after(this.$editor);
 				this.$box.remove();
-				this.$editor.removeClass('redactor_editor').removeClass('redactor_editor_wym').attr('contenteditable', false).html(html).show();
+				this.$editor.removeClass('redactor_editor').removeClass('redactor_editor_wym').attr('contenteditable', false).show();
+                this.$editor[0].innerHTML = html;
 			}
 
 			if (this.opts.toolbarExternal)
@@ -1303,7 +1304,7 @@ var RLANG = {
 		setBuffer: function()
 		{
 			this.saveSelection();
-			this.opts.buffer = this.$editor.html();
+			this.opts.buffer = this.$editor[0].innerHTML;
 		},
 		getBuffer: function()
 		{
@@ -1312,7 +1313,7 @@ var RLANG = {
 				return false;
 			}
 
-			this.$editor.html(this.opts.buffer);
+			this.$editor[0].innerHTML = this.opts.buffer;
 
 			if (!$.browser.msie)
 			{
@@ -1407,7 +1408,7 @@ var RLANG = {
 					{
 						if ($.browser.msie)
 						{
-							var node = $('<p>' + $(parent).html() + '</p>');
+                            var node = $('<p>' + $(parent).html() + '</p>');
 							$(parent).replaceWith(node);
 						}
 						else
@@ -1420,7 +1421,7 @@ var RLANG = {
 						var parent2 = $(parent).parent();
 						if ($(parent2).get(0).tagName === 'BLOCKQUOTE')
 						{
-							var node = $('<p>' + $(parent).html() + '</p>');
+                            var node = $('<p>' + $(parent).html() + '</p>');
 							$(parent2).replaceWith(node);
 							this.setFocusNode(node.get(0));
 						}
@@ -1428,7 +1429,7 @@ var RLANG = {
 						{
 							if ($.browser.msie)
 							{
-								var node = $('<blockquote>' + $(parent).html() + '</blockquote>');
+                                var node = $('<blockquote>' + $(parent).html() + '</blockquote>');
 								$(parent).replaceWith(node);
 							}
 							else
@@ -1513,11 +1514,11 @@ var RLANG = {
 			{
 				var element = $(this.getCurrentNode());
 
-				if (element.get(0).tagName === 'DIV' && (element.html() === '' || element.html() === '<br>'))
+                if (element.get(0).tagName === 'DIV' && (element.html() === '' || element.html() === '<br>'))
 				{
 					var newElement = $('<p>').append(element.clone().get(0).childNodes);
 					element.replaceWith(newElement);
-					newElement.html('<br />');
+                    newElement.html('<br />');
 					this.setFocusNode(newElement.get(0));
 				}
 			}
@@ -1542,7 +1543,7 @@ var RLANG = {
 		// FORMAT EMPTY
 		formatEmpty: function(e)
 		{
-			var html = $.trim(this.$editor.html());
+			var html = $.trim(this.$editor[0].innerHTML);
 
 			if ($.browser.mozilla)
 			{
@@ -1556,7 +1557,7 @@ var RLANG = {
 				e.preventDefault();
 
 				var node = $(this.opts.emptyHtml).get(0);
-				this.$editor.html(node);
+				this.$editor[0].innerHTML = node;
 				this.setFocusNode(node);
 
 				this.syncCode();
@@ -1626,6 +1627,7 @@ var RLANG = {
 		{
 			var allowed = this.opts.allowedTags;
 			var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+
 			return html.replace(tags, function ($0, $1)
 			{
 				return $.inArray($1.toLowerCase(), allowed) > '-1' ? $0 : '';
@@ -1865,7 +1867,7 @@ var RLANG = {
 				var height = this.$editor.innerHeight();
 				this.$editor.hide();
 
-				html = this.$editor.html();
+				html = this.$editor[0].innerHTML;
 				html = $.trim(this.formatting(html));
 
 
@@ -1873,7 +1875,8 @@ var RLANG = {
 
 
                 this.$ace_editor.resize();
-                var html_pp = style_html(this.$editor.html());
+
+                var html_pp = style_html(html);
                 this.$ace_editor.getSession().setValue(html_pp);
 
 				this.$elace.height(height).show().focus(); //changed
@@ -1893,10 +1896,10 @@ var RLANG = {
                 // clean up
 				html = this.stripTags(html);
 
-				this.$editor.html(html);
+				this.$editor[0].innerHTML = html;
                 this.$editor.show();
 
-				if (this.$editor.html() === '')
+				if (this.$editor[0].innerHTML === '')
 				{
 					this.setCode(this.opts.emptyHtml);
 				}
@@ -2127,7 +2130,7 @@ var RLANG = {
 					{
 						_self.$editor.find('font').replaceWith(function() {
 
-							return $('<span style="color: ' + $(this).attr('color') + ';">' + $(this).html() + '</span>');
+                            return $('<span style="color: ' + $(this).attr('color') + ';">' + $(this).html() + '</span>');
 
 						});
 					}
@@ -2136,7 +2139,7 @@ var RLANG = {
 					{
 						_self.$editor.find('font').replaceWith(function() {
 
-							return $('<span style="' + $(this).attr('style') + '">' + $(this).html() + '</span>');
+                            return $('<span style="' + $(this).attr('style') + '">' + $(this).html() + '</span>');
 
 						});
 					}
@@ -2662,7 +2665,7 @@ var RLANG = {
 			}
 
 			$(table_box).append(table);
-			var html = $(table_box).html() + '<p></p>';
+            var html = $(table_box).html() + '<p></p>';
 
 			this.restoreSelection();
 			this.execCommand('inserthtml', html);
@@ -3350,7 +3353,7 @@ var RLANG = {
 			// set content
 			if (content.indexOf('#') == 0)
 			{
-				$('#redactor_modal_inner').empty().append($(content).html());
+                $('#redactor_modal_inner').empty().append($(content).html());
 			}
 			else
 			{
@@ -3636,7 +3639,7 @@ var RLANG = {
 		},
 		outerHTML: function(s)
 		{
-			return $("<p>").append($(s).eq(0).clone()).html();
+            return $("<p>").append($(s).eq(0).clone()).html();
 		},
 		normalize: function(str)
 		{
