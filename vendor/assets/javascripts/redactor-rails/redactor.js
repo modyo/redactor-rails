@@ -1265,7 +1265,7 @@ var RLANG = {
 				return false;
 			}
 
-			$(this.$editor.innerHTML).find('img').each($.proxy(function(i,s)
+			this.$editor.find('img').each($.proxy(function(i,s)
 			{
 				if ($.browser.msie)
 				{
@@ -1279,7 +1279,7 @@ var RLANG = {
 		},
 		observeTables: function()
 		{
-			$(this.$editor.innerHTML).find('table').click($.proxy(this.tableObserver, this));
+			this.$editor.find('table').click($.proxy(this.tableObserver, this));
 		},
 		observeScroll: function()
 		{
