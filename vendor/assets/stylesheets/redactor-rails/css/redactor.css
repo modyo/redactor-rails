@@ -333,6 +333,7 @@ body .redactor_toolbar li a.redactor_btn_underline		 	{ background-position: -52
 
 body .redactor_toolbar li a.redactor_btn_fullscreen		 	{ background-position: -550px; }
 body .redactor_toolbar li a.redactor_btn_normalscreen		{ background-position: -575px; }
+body .redactor_toolbar li a.redactor_btn_reference		 		{ background-position: -600px; }
 body .redactor_toolbar li a.redactor_btn_clips		 		{ background-position: -600px; }
 
 body .redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -625px; }
