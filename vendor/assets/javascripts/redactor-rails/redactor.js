@@ -74,7 +74,7 @@ var RLANG = {
     choose: 'Choose',
     or_choose: 'Or choose',
     drop_file_here: 'Drop file here',
-    align_left:	'Align text to the left',
+    align_left: 'Align text to the left',
     align_center: 'Center text',
     align_right: 'Align text to the right',
     align_justify: 'Justify text',
@@ -83,7 +83,11 @@ var RLANG = {
     anchor: 'Anchor',
     link_new_tab: 'Open link in new tab',
     underline: 'Underline',
-    alignment: 'Alignment'
+    alignment: 'Alignment',
+    width: 'Width',
+    reference_title: 'Displayed text ',
+    reference_url: 'Reference',
+    reference: 'Insert Reference'
 };
 
 (function($){
@@ -180,7 +184,7 @@ var RLANG = {
             buttonsCustom: {},
             buttonsAdd: [],
             buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
-                'image', 'video', 'file', 'table', 'link', '|',
+                'image', 'video', 'file', 'table', 'link', 'reference', '|',
                 'fontcolor', 'backcolor', '|', 'alignment', '|', 'horizontalrule'], // 'underline', 'alignleft', 'aligncenter', 'alignright', 'justify'
 
             airButtons: ['formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'fontcolor', 'backcolor'],
@@ -239,9 +243,9 @@ var RLANG = {
                 '</select>' +
                 '</div>' +
                 '<div id="redactor_modal_footer">' +
-                '<a href="javascript:void(null);" id="redactor_image_delete_btn" class="redactor_modal_btn">' + RLANG._delete + '</a>&nbsp;&nbsp;&nbsp;' +
-                '<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
-                '<input type="button" name="save" class="redactor_modal_btn" id="redactorSaveBtn" value="' + RLANG.save + '" />' +
+                '<a href="javascript:void(null);" id="redactor_image_delete_btn" class="redactor_modal_btn btn">' + RLANG._delete + '</a>&nbsp;&nbsp;&nbsp;' +
+                '<a href="javascript:void(null);" class="redactor_modal_btn btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+                '<input type="button" name="save" class="redactor_modal_btn btn btn-primary" id="redactorSaveBtn" value="' + RLANG.save + '" />' +
                 '</div>',
 
             modal_image: String() +
@@ -265,8 +269,8 @@ var RLANG = {
                 '</div>' +
                 '</div>' +
                 '<div id="redactor_modal_footer">' +
-                '<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
-                '<input type="button" name="upload" class="redactor_modal_btn" id="redactor_upload_btn" value="' + RLANG.insert + '" />' +
+                '<a href="javascript:void(null);" class="redactor_modal_btn btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+                '<input type="button" name="upload" class="redactor_modal_btn btn btn-primary" id="redactor_upload_btn" value="' + RLANG.insert + '" />' +
                 '</div>',
 
             modal_link: String() +
@@ -294,8 +298,8 @@ var RLANG = {
                 '</form>' +
                 '</div>' +
                 '<div id="redactor_modal_footer">' +
-                '<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
-                '<input type="button" class="redactor_modal_btn" id="redactor_insert_link_btn" value="' + RLANG.insert + '" />' +
+                '<a href="javascript:void(null);" class="redactor_modal_btn btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+                '<input type="button" class="redactor_modal_btn btn btn-primary" id="redactor_insert_link_btn" value="' + RLANG.insert + '" />' +
                 '</div>',
 
             modal_table: String() +
@@ -304,10 +308,12 @@ var RLANG = {
                 '<input type="text" size="5" value="2" id="redactor_table_rows" />' +
                 '<label>' + RLANG.columns + '</label>' +
                 '<input type="text" size="5" value="3" id="redactor_table_columns" />' +
+                '<label>' + RLANG.width + '</label>' +
+                '<input type="text" size="5" value="100%" id="redactor_table_width" />' +
                 '</div>' +
                 '<div id="redactor_modal_footer">' +
-                '<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
-                '<input type="button" name="upload" class="redactor_modal_btn" id="redactor_insert_table_btn" value="' + RLANG.insert + '" />' +
+                '<a href="javascript:void(null);" class="redactor_modal_btn btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+                '<input type="button" name="upload" class="redactor_modal_btn btn btn-primary" id="redactor_insert_table_btn" value="' + RLANG.insert + '" />' +
                 '</div>',
 
             modal_video: String() +
@@ -318,8 +324,22 @@ var RLANG = {
                 '</form>' +
                 '</div>'+
                 '<div id="redactor_modal_footer">' +
-                '<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
-                '<input type="button" class="redactor_modal_btn" id="redactor_insert_video_btn" value="' + RLANG.insert + '" />' +
+                '<a href="javascript:void(null);" class="redactor_modal_btn btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+                '<input type="button" class="redactor_modal_btn btn btn-primary" id="redactor_insert_video_btn" value="' + RLANG.insert + '" />' +
+                '</div>',
+
+            modal_reference: String() +
+                '<div id="redactor_modal_content">' +
+                '<form id="redactorInsertReferenceForm">' +
+                '<label>' + RLANG.reference_title + '</label>' +
+                '<input type="text" size="5" value="" id="redactor_reference_title" />' +
+                '<label>' + RLANG.reference_url + '</label>' +
+                '<textarea id="redactor_reference_url" style="width: 99%; height: 100px;"></textarea>' +
+                '</form>' +
+                '</div>'+
+                '<div id="redactor_modal_footer">' +
+                '<a href="javascript:void(null);" class="redactor_modal_btn btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
+                '<input type="button" class="redactor_modal_btn btn btn-primary" id="redactor_insert_reference_btn" value="' + RLANG.insert + '" />' +
                 '</div>',
 
             toolbar: {
@@ -426,6 +446,11 @@ var RLANG = {
                 {
                     title: RLANG.video,
                     func: 'showVideo'
+                },
+                reference:
+                {
+                    title: RLANG.reference,
+                    func: 'showReference'
                 },
                 file:
                 {
@@ -2653,11 +2678,12 @@ var RLANG = {
         {
             var rows = $('#redactor_table_rows').val();
             var columns = $('#redactor_table_columns').val();
+            var width = $('#redactor_table_width').val();
 
             var table_box = $('<div></div>');
 
             var tableid = Math.floor(Math.random() * 99999);
-            var table = $('<table id="table' + tableid + '"><tbody></tbody></table>');
+            var table = $('<table id="table' + tableid + '" style="width:'+width+'"><tbody></tbody></table>');
 
             for (var i = 0; i < rows; i++)
             {
@@ -2822,6 +2848,53 @@ var RLANG = {
             this.modalClose();
         },
 
+        // INSERT REFERENCE
+        showReference: function()
+        {
+            this.saveSelection();
+            this.modalInit(RLANG.reference, this.opts.modal_reference, 600, $.proxy(function()
+            {
+                $('#redactor_insert_reference_btn').click($.proxy(this.insertReference, this));
+                $('#redactor_insert_reference_area').focus();
+
+            }, this)
+            );
+        },
+        insertReference: function()
+        {
+            var reference_title = $('#redactor_reference_title').val();
+            var reference_url = $('#redactor_reference_url').val();
+
+            var refid = Math.floor(Math.random() * 99999);
+            var link = $('<div><p><a data-toggle="modal" href="#ref-' + refid +'">'+reference_title+'</a></p></div>');
+
+            //<p><a data-toggle="modal" href="#ref-135" onclick="return false;">ruby on rails</a></p>
+            var modal = $('<div></div>');
+            var modal_box = $('<div class="modal hide fade" id="ref-'+ refid +'"></div>');
+
+            var modal_header = $('<div class="modal-header"><h3>Reference '+ reference_title +'</h3><button class="close" data-dismiss="modal">×</button></div>');
+
+            var modal_body = $('<div class="modal-body"><p>'+ reference_url +'</p></div>');
+
+            modal_box.append(modal_header);
+            modal_box.append(modal_body);
+            modal.append(modal_box);
+          /*  <div class="modal hide fade" id="ref-135">
+                <div class="modal-header">
+                    <h3>
+                    Reference ruby on rails</h3>
+                    <button class="close" data-dismiss="modal">×</button></div>
+                <div class="modal-body">
+                <p>www.pico.com</p>
+                </div>
+            </div>       */
+
+            var html = $(link).html() + $(modal).html() +'<p></p>';
+
+            this.restoreSelection();
+            this.execCommand('inserthtml', html);
+            this.modalClose();
+        },
         // INSERT IMAGE
         imageEdit: function(e)
         {
