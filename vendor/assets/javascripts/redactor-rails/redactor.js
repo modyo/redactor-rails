@@ -2872,7 +2872,7 @@ var RLANG = {
             var modal = $('<div></div>');
             var modal_box = $('<div class="modal hide fade" id="ref-'+ refid +'"></div>');
 
-            var modal_header = $('<div class="modal-header"><h3>Reference '+ reference_title +'</h3><button class="close" data-dismiss="modal">×</button></div>');
+            var modal_header = $('<div class="modal-header"><h3>'+ reference_title +'</h3><button class="close" data-dismiss="modal">×</button></div>');
 
             var modal_body = $('<div class="modal-body"><p>'+ reference_url +'</p></div>');
 
