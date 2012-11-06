@@ -1899,7 +1899,7 @@ var RLANG = {
                 this.$editor.hide();
 
                 html = this.$editor[0].innerHTML;
-                html = $.trim(this.formatting(html));
+                html = $.trim(html);
 
 
                 this.$el.height(height).val(html);//show().focus();
@@ -1910,8 +1910,8 @@ var RLANG = {
                 var html_pp = style_html(html);
                 this.$ace_editor.getSession().setValue(html_pp);
 
-                this.$elace.height(height).show().focus(); //changed
-
+                this.$elace.height(height).show(); //changed
+                this.$ace_editor.focus();
 
                 this.setBtnActive('html');
                 this.opts.visual = false;
