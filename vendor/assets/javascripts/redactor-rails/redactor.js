@@ -1588,7 +1588,7 @@ var RLANG = {
                 e.preventDefault();
 
                 var node = $(this.opts.emptyHtml).get(0);
-                this.$editor[0].innerHTML = node;
+                this.$editor.html(node);
                 this.setFocusNode(node);
 
                 this.syncCode();
