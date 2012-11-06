@@ -1067,6 +1067,8 @@ var RLANG = {
                 var dummySession = new EditSession(html_pp, "ace/mode/html");
                 this.$ace_editor.setSession(dummySession);
                 this.$ace_editor.setTheme("ace/theme/idle_fingers");
+                var UndoManager = require("ace/undomanager").UndoManager;
+                this.$ace_editor.getSession().setUndoManager(new UndoManager());
 
                 var me = this;
                 this.$ace_editor.getSession().on('tokenizerUpdate', function(e) {
