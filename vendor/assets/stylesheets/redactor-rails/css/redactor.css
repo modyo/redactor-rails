@@ -42,43 +42,6 @@ body .redactor_box_fullscreen {
 	white-space: normal;	
 }
 
-.redactor_editor,
-.redactor_editor:focus,
-.redactor_editor div,
-.redactor_editor p,
-.redactor_editor ul,
-.redactor_editor ol,
-.redactor_editor table,
-.redactor_editor dl,
-.redactor_editor blockquote,
-.redactor_editor pre,
-.redactor_editor h1,
-.redactor_editor h2,
-.redactor_editor h3,
-.redactor_editor h4,
-.redactor_editor h5 {
-	font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;
-}
-
-.redactor_editor code,
-.redactor_editor pre {
-	font-family: Menlo, Monaco, monospace, sans-serif !important;
-}
-
-.redactor_editor,
-.redactor_editor:focus,
-.redactor_editor div,
-.redactor_editor p,
-.redactor_editor ul,
-.redactor_editor ol,
-.redactor_editor table,
-.redactor_editor dl,
-.redactor_editor blockquote,
-.redactor_editor pre {
-	font-size: 15px !important;
-	line-height: 1.45em !important;
-}
-
 .redactor_editor, .redactor_editor:focus {
 	position: relative;
 	outline: none;
@@ -88,6 +51,9 @@ body .redactor_box_fullscreen {
 	background: none;	
 	background: #fff !important;
 	overflow: auto;
+	font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;      
+	font-size: 15px !important;
+	line-height: 1.45em !important;	
 	white-space: normal;
 }
 .redactor_editor a {
@@ -119,6 +85,9 @@ body .redactor_box_fullscreen {
 	background: none !important;
 	margin: 0 !important;
 	margin-bottom: 15px !important;
+	line-height: 1.45em !important;
+	font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif !important;      
+	font-size: 15px !important;
 	border: none;	
 }
 .redactor_editor iframe, 
@@ -160,6 +129,10 @@ body .redactor_box_fullscreen {
 	border-bottom: 2px solid #000 !important;
 	font-weight: bold !important;
 }
+.redactor_editor code, 
+.redactor_editor pre {
+	font-family: Menlo, Monaco, monospace, sans-serif !important;
+}
 .redactor_editor code {
 	background-color: #d8d7d7 !important;
 }
@@ -184,6 +157,7 @@ body .redactor_box_fullscreen {
 .redactor_editor h3, 
 .redactor_editor h4,
 .redactor_editor h5 {
+	font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif !important;
 	color: #000;
 	background: none;	
 	margin: 0 !important;
@@ -279,7 +253,6 @@ body .redactor_air .redactor_toolbar {
 	padding: 3px 1px;
 	padding-right: 0;
 	list-style: none !important;
-	outline: none;
 }
 .redactor_toolbar li.redactor_separator {
 	float: left;		
@@ -299,7 +272,6 @@ body .redactor_air .redactor_toolbar {
 	font-size: 0;
 	cursor: pointer;
 	zoom: 1;
-	outline: none;
 	text-decoration: none;
 }	
 .redactor_toolbar li.redactor_btn_right {
@@ -325,12 +297,10 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a:hover {
 	border-color: #98a6ba;
 	background-color: #dde4ef;
-	outline: none;
 }
 .redactor_toolbar li a:active, .redactor_toolbar li a.redactor_act {
 	border-color: #b5b5b5;
 	background-color: #ddd;
-	outline: none;
 }
 
 
@@ -419,7 +389,7 @@ body .redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -62
 	padding: 10px;	
 }
 .redactor_separator_drop {
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #ddd;;
 	padding: 0 !important;
 	line-height: 0;
 	font-size: 0;
