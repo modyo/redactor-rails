@@ -1074,8 +1074,6 @@ var RLANG = {
                 this.$ace_editor.getSession().on('tokenizerUpdate', function(e) {
                     var html =  me.$ace_editor.getSession().getValue();
 
-                    html = me.stripTags(html);
-                    me.$editor[0].innerHTML= html;
                     me.syncCode();
                 });
 
@@ -1909,7 +1907,8 @@ var RLANG = {
 
                 this.$ace_editor.resize();
 
-                var html_pp = style_html(html);
+                var html = style_html(html,{'unformatted': ['pre','code']});
+
                 this.$ace_editor.getSession().setValue(html);
 
                 this.$elace.height(height).show(); //changed
