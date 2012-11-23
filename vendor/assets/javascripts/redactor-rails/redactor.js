@@ -1899,6 +1899,8 @@ var RLANG = {
                 this.$editor.hide();
 
                 html = this.$editor[0].innerHTML;
+                // remove nbsp
+                html = html.replace(/(&nbsp;)/gi, ' ');
                 html = $.trim(html);
 
 
