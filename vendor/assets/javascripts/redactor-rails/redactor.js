@@ -1074,7 +1074,7 @@ var RLANG = {
                 this.$ace_editor.getSession().on('tokenizerUpdate', function(e) {
                     var html =  me.$ace_editor.getSession().getValue();
 
-                    html = me.stripTags(html);
+                    //html = me.stripTags(html);
                     me.$editor[0].innerHTML= html;
                     me.syncCode();
                 });
