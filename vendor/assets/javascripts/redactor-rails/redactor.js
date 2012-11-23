@@ -885,7 +885,7 @@ var RLANG = {
                         }
                         else if (e.shiftKey)
                         {
-                            this.shortcuts(e, 'redo');	// Ctrl + Shift + z
+                            this.shortcuts(e, 'redo'); // Ctrl + Shift + z
                         }
                         else
                         {
@@ -1074,7 +1074,7 @@ var RLANG = {
                 this.$ace_editor.getSession().on('tokenizerUpdate', function(e) {
                     var html =  me.$ace_editor.getSession().getValue();
 
-                    //html = me.stripTags(html);
+                    html = me.stripTags(html);
                     me.$editor[0].innerHTML= html;
                     me.syncCode();
                 });
@@ -1910,7 +1910,7 @@ var RLANG = {
                 this.$ace_editor.resize();
 
                 var html_pp = style_html(html);
-                this.$ace_editor.getSession().setValue(html_pp);
+                this.$ace_editor.getSession().setValue(html);
 
                 this.$elace.height(height).show(); //changed
                 this.$ace_editor.focus();
@@ -2881,15 +2881,15 @@ var RLANG = {
             modal_box.append(modal_header);
             modal_box.append(modal_body);
             modal.append(modal_box);
-          /*  <div class="modal hide fade" id="ref-135">
-                <div class="modal-header">
-                    <h3>
-                    Reference ruby on rails</h3>
-                    <button class="close" data-dismiss="modal">×</button></div>
-                <div class="modal-body">
-                <p>www.pico.com</p>
-                </div>
-            </div>       */
+            /*  <div class="modal hide fade" id="ref-135">
+             <div class="modal-header">
+             <h3>
+             Reference ruby on rails</h3>
+             <button class="close" data-dismiss="modal">×</button></div>
+             <div class="modal-body">
+             <p>www.pico.com</p>
+             </div>
+             </div>       */
 
             var html = $(link).html() + $(modal).html() +'<p></p>';
 
