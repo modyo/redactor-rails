@@ -1063,8 +1063,8 @@ var RLANG = {
                 this.$ace_editor = ace.edit(this.$elace.attr('id'));
                 var EditSession = require("ace/edit_session").EditSession;
 
-                var html_pp = style_html(html);
-                var dummySession = new EditSession(html_pp, "ace/mode/html");
+                var html = style_html(html,{'unformatted': ['pre','code']});
+                var dummySession = new EditSession(html, "ace/mode/html");
                 this.$ace_editor.setSession(dummySession);
                 this.$ace_editor.setTheme("ace/theme/idle_fingers");
                 var UndoManager = require("ace/undomanager").UndoManager;
@@ -1073,7 +1073,9 @@ var RLANG = {
                 var me = this;
                 this.$ace_editor.getSession().on('tokenizerUpdate', function(e) {
                     var html =  me.$ace_editor.getSession().getValue();
+                    html = me.stripTags(html);
 
+                    me.$editor[0].innerHTML= html;
                     me.syncCode();
                 });
 
